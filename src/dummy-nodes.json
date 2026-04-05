@@ -1,0 +1,27 @@
+[
+  {
+    "x": 10,
+    "y": 20,
+    "isWall": false
+  },
+  {
+    "x": 15,
+    "y": 25,
+    "isWall": true
+  },
+  {
+    "x": 5,
+    "y": 30,
+    "isWall": false
+  },
+  {
+    "x": 20,
+    "y": 10,
+    "isWall": true
+  },
+  {
+    "x": 25,
+    "y": 35,
+    "isWall": false
+  }
+]
