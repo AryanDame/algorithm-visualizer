@@ -5,7 +5,12 @@ import { breadthFirstSearch } from "../algorithms/bfs";
 import { depthFirstSearch } from "../algorithms/dfs";
 import { greedyBestFirstSearch } from "../algorithms/greedyBestFirst";
 import { bidirectionalBreadthFirstSearch } from "../algorithms/bidirectionalBfs";
+import { bidirectionalDijkstra } from "../algorithms/bidirectionalDijkstra";
+import { bellmanFord } from "../algorithms/bellmanFord";
+import { beamSearch } from "../algorithms/beamSearch";
+import { iterativeDeepeningDfs } from "../algorithms/iddfs";
 import { mazeRecursiveBacktracker } from "../algorithms/mazeRecursiveBacktracker";
+import { weightedAstar } from "../algorithms/weightedAstar";
 
 export const useGridState = (props) => {
   const {
@@ -45,6 +50,193 @@ export const useGridState = (props) => {
   const [grid, setGrid] = useState(() =>
     getInitialGrid(startNodePos, finishNodePos),
   );
+
+  const placeWalls = (scenarioGrid, walls) => {
+    walls.forEach(([row, col]) => {
+      if (!scenarioGrid[row]?.[col]) return;
+      if (scenarioGrid[row][col].isStart || scenarioGrid[row][col].isFinish) {
+        return;
+      }
+      scenarioGrid[row][col] = {
+        ...scenarioGrid[row][col],
+        isWall: true,
+      };
+    });
+  };
+
+  const placeWeights = (scenarioGrid, weights) => {
+    weights.forEach(([row, col, weight = 15]) => {
+      if (!scenarioGrid[row]?.[col]) return;
+      if (scenarioGrid[row][col].isStart || scenarioGrid[row][col].isFinish) {
+        return;
+      }
+      scenarioGrid[row][col] = {
+        ...scenarioGrid[row][col],
+        isWeight: true,
+        weight,
+      };
+    });
+  };
+
+  const getAlgorithmScenario = (algorithmName) => {
+    switch (algorithmName) {
+      case "dijkstra": {
+        const start = { row: 24, col: 4 };
+        const finish = { row: 24, col: 45 };
+        const weights = [];
+        for (let col = 8; col <= 40; col += 1) {
+          weights.push([24, col, 30]);
+        }
+        return { start, finish, walls: [], weights };
+      }
+      case "astar": {
+        const start = { row: 44, col: 4 };
+        const finish = { row: 6, col: 46 };
+        const walls = [];
+        for (let row = 5; row <= 44; row += 1) {
+          if (row === 22) continue;
+          walls.push([row, 24]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      case "weighted-astar": {
+        const start = { row: 43, col: 5 };
+        const finish = { row: 6, col: 44 };
+        const walls = [];
+        for (let row = 6; row <= 43; row += 1) {
+          if (row !== 18 && row !== 33) {
+            walls.push([row, 25]);
+          }
+        }
+        const weights = [];
+        for (let col = 7; col <= 42; col += 1) {
+          weights.push([26, col, 22]);
+        }
+        return { start, finish, walls, weights };
+      }
+      case "bfs": {
+        const start = { row: 8, col: 5 };
+        const finish = { row: 40, col: 40 };
+        const walls = [];
+        for (let row = 8; row <= 40; row += 1) {
+          if (row === 20) continue;
+          walls.push([row, 20]);
+        }
+        for (let col = 12; col <= 40; col += 1) {
+          if (col === 32) continue;
+          walls.push([28, col]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      case "dfs": {
+        const start = { row: 40, col: 6 };
+        const finish = { row: 8, col: 44 };
+        const walls = [];
+        for (let row = 6; row <= 42; row += 1) {
+          if (row !== 36) walls.push([row, 12]);
+          if (row !== 12) walls.push([row, 24]);
+          if (row !== 30) walls.push([row, 36]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      case "greedy": {
+        const start = { row: 38, col: 8 };
+        const finish = { row: 12, col: 42 };
+        const walls = [];
+        for (let col = 10; col <= 42; col += 1) {
+          if (col !== 18) walls.push([16, col]);
+        }
+        for (let row = 16; row <= 38; row += 1) {
+          if (row !== 30) walls.push([18, row <= 26 ? 18 : 30]);
+        }
+        for (let row = 18; row <= 38; row += 1) {
+          if (row !== 34) walls.push([row, 30]);
+        }
+        const weights = [
+          [34, 30, 20],
+          [33, 30, 20],
+          [32, 30, 20],
+          [31, 30, 20],
+        ];
+        return { start, finish, walls, weights };
+      }
+      case "beam-search": {
+        const start = { row: 41, col: 4 };
+        const finish = { row: 8, col: 45 };
+        const walls = [];
+        for (let row = 8; row <= 42; row += 1) {
+          if (row !== 15) walls.push([row, 14]);
+          if (row !== 36) walls.push([row, 24]);
+          if (row !== 20) walls.push([row, 34]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      case "bidirectional-bfs": {
+        const start = { row: 24, col: 2 };
+        const finish = { row: 24, col: 47 };
+        const walls = [];
+        for (let row = 8; row <= 40; row += 1) {
+          if (row === 24) continue;
+          walls.push([row, 16]);
+          walls.push([row, 32]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      case "bidirectional-dijkstra": {
+        const start = { row: 24, col: 3 };
+        const finish = { row: 24, col: 46 };
+        const walls = [];
+        for (let row = 7; row <= 41; row += 1) {
+          if (row !== 18 && row !== 30) {
+            walls.push([row, 18]);
+            walls.push([row, 31]);
+          }
+        }
+        const weights = [];
+        for (let col = 4; col <= 45; col += 1) {
+          if (col < 17 || col > 32) {
+            weights.push([24, col, 10]);
+          }
+        }
+        return { start, finish, walls, weights };
+      }
+      case "bellman-ford": {
+        const start = { row: 30, col: 5 };
+        const finish = { row: 14, col: 45 };
+        const walls = [];
+        for (let col = 9; col <= 44; col += 1) {
+          if (col !== 33) {
+            walls.push([22, col]);
+          }
+        }
+        const weights = [];
+        for (let row = 14; row <= 30; row += 1) {
+          weights.push([row, 20, 25]);
+          weights.push([row, 21, 25]);
+        }
+        return { start, finish, walls, weights };
+      }
+      case "iddfs": {
+        const start = { row: 42, col: 4 };
+        const finish = { row: 6, col: 45 };
+        const walls = [];
+        for (let row = 6; row <= 42; row += 1) {
+          if (row !== 40) walls.push([row, 10]);
+          if (row !== 9) walls.push([row, 20]);
+          if (row !== 33) walls.push([row, 30]);
+          if (row !== 15) walls.push([row, 40]);
+        }
+        return { start, finish, walls, weights: [] };
+      }
+      default:
+        return {
+          start: { row: 10, col: 10 },
+          finish: { row: 10, col: 40 },
+          walls: [],
+          weights: [],
+        };
+    }
+  };
 
   const buildGridWithSpecialNodes = (
     sourceGrid,
@@ -102,42 +294,65 @@ export const useGridState = (props) => {
         return dijkstra(grid, startNode, finishNode);
       case "astar":
         return astar(grid, startNode, finishNode);
+      case "weighted-astar":
+        return weightedAstar(grid, startNode, finishNode);
       case "bfs":
         return breadthFirstSearch(grid, startNode, finishNode);
       case "dfs":
         return depthFirstSearch(grid, startNode, finishNode);
       case "greedy":
         return greedyBestFirstSearch(grid, startNode, finishNode);
+      case "beam-search":
+        return beamSearch(grid, startNode, finishNode);
       case "bidirectional-bfs":
         return bidirectionalBreadthFirstSearch(grid, startNode, finishNode);
+      case "bidirectional-dijkstra":
+        return bidirectionalDijkstra(grid, startNode, finishNode);
+      case "bellman-ford":
+        return bellmanFord(grid, startNode, finishNode);
+      case "iddfs":
+        return iterativeDeepeningDfs(grid, startNode, finishNode);
       default:
         throw new Error(`Unknown algorithm: ${algoName}`);
     }
   };
 
   // Grid mutation helpers
+  const toggleNodeProperty = (gridState, row, col, mode) => {
+    const target = gridState[row]?.[col];
+    if (!target || target.isStart || target.isFinish) {
+      return gridState;
+    }
+
+    const nextGrid = [...gridState];
+    const nextRow = [...nextGrid[row]];
+    nextGrid[row] = nextRow;
+
+    if (mode === "wall") {
+      nextRow[col] = {
+        ...target,
+        isWall: !target.isWall,
+        isWeight: false,
+        weight: 1,
+      };
+      return nextGrid;
+    }
+
+    nextRow[col] = {
+      ...target,
+      isWeight: !target.isWeight,
+      weight: !target.isWeight ? 15 : 1,
+      isWall: false,
+    };
+    return nextGrid;
+  };
+
   const getNewGridWithWallToggled = (grid, row, col) => {
-    return grid.map((r) =>
-      r.map((node) =>
-        node.row === row && node.col === col
-          ? { ...node, isWall: !node.isWall }
-          : node,
-      ),
-    );
+    return toggleNodeProperty(grid, row, col, "wall");
   };
 
   const getNewGridWithWeightToggled = (grid, row, col) => {
-    return grid.map((r) =>
-      r.map((node) =>
-        node.row === row && node.col === col
-          ? {
-              ...node,
-              isWeight: !node.isWeight,
-              weight: !node.isWeight ? 15 : 1,
-            }
-          : node,
-      ),
-    );
+    return toggleNodeProperty(grid, row, col, "weight");
   };
 
   // DOM manipulation helpers
@@ -189,6 +404,14 @@ export const useGridState = (props) => {
       setMouseIsPressed(true);
       return;
     }
+
+    if (
+      (row === startNodePos.row && col === startNodePos.col) ||
+      (row === finishNodePos.row && col === finishNodePos.col)
+    ) {
+      return;
+    }
+
     setMouseIsPressed(true);
     const toggleFunction =
       drawingMode === "wall"
@@ -270,6 +493,13 @@ export const useGridState = (props) => {
       return;
     }
 
+    if (
+      (row === startNodePos.row && col === startNodePos.col) ||
+      (row === finishNodePos.row && col === finishNodePos.col)
+    ) {
+      return;
+    }
+
     const toggleFunction =
       drawingMode === "wall"
         ? getNewGridWithWallToggled
@@ -285,6 +515,12 @@ export const useGridState = (props) => {
   const handleRightClick = (row, col, e) => {
     e.preventDefault();
     if (isAnimatingLocal || draggingNode) return;
+    if (
+      (row === startNodePos.row && col === startNodePos.col) ||
+      (row === finishNodePos.row && col === finishNodePos.col)
+    ) {
+      return;
+    }
     const toggleFunction =
       drawingMode === "wall"
         ? getNewGridWithWeightToggled
@@ -424,6 +660,25 @@ export const useGridState = (props) => {
     clearPathVisuals();
   };
 
+  const loadAlgorithmExample = (algorithmName = selectedAlgorithm) => {
+    if (draggingNode || isAnimatingLocal) return;
+
+    clearAllTimeouts();
+    clearPathVisuals();
+    setIsVisualized(false);
+    setIsAnimatingLocal(false);
+    setIsAnimating(false);
+
+    const scenario = getAlgorithmScenario(algorithmName);
+    const scenarioGrid = getInitialGrid(scenario.start, scenario.finish);
+    placeWalls(scenarioGrid, scenario.walls);
+    placeWeights(scenarioGrid, scenario.weights);
+
+    setStartNodePos(scenario.start);
+    setFinishNodePos(scenario.finish);
+    setGrid(scenarioGrid);
+  };
+
   useEffect(() => {
     setVisualizeDijkstra(() => visualizeDijkstra);
   }, [grid, setVisualizeDijkstra, startNodePos, finishNodePos]);
@@ -439,6 +694,15 @@ export const useGridState = (props) => {
   useEffect(() => {
     setClearPath(() => clearPath);
   }, [setClearPath]);
+
+  useEffect(() => {
+    if (draggingNode || isAnimatingLocal) {
+      return;
+    }
+
+    loadAlgorithmExample(selectedAlgorithm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedAlgorithm]);
 
   // Cleanup: Clear all timeouts when component unmounts
   useEffect(() => {

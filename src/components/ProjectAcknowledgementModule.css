@@ -1,0 +1,182 @@
+.project-ack-module {
+  margin-top: 1rem;
+  padding: 1.15rem;
+  border-radius: 24px;
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(56, 189, 248, 0.2),
+      transparent 34%
+    ),
+    linear-gradient(180deg, rgba(2, 132, 199, 0.14), rgba(15, 23, 42, 0.46));
+  box-shadow: 0 18px 36px rgba(2, 6, 23, 0.22);
+}
+
+.project-ack-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin-bottom: 0.85rem;
+}
+
+.project-ack-head h2 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.project-ack-label {
+  margin: 0 0 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  color: rgba(191, 219, 254, 0.92);
+}
+
+.project-ack-tag {
+  font-size: 0.72rem;
+  padding: 0.24rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #bae6fd;
+}
+
+.project-ack-module p {
+  color: rgba(226, 232, 240, 0.92);
+  line-height: 1.6;
+}
+
+.project-ack-body {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: 1rem;
+  margin-top: 0.35rem;
+  align-items: start;
+}
+
+.project-ack-photo-card {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(15, 23, 42, 0.56);
+  box-shadow: 0 18px 34px rgba(2, 6, 23, 0.24);
+}
+
+.project-photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.project-photo-fallback {
+  min-height: 320px;
+  display: grid;
+  place-content: center;
+  gap: 0.35rem;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+.project-photo-fallback span {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.project-photo-fallback small {
+  font-size: 0.72rem;
+  color: #93c5fd;
+  padding: 0 0.35rem;
+}
+
+.project-ack-copy-area {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.project-ack-lead {
+  margin: 0;
+  font-size: 1rem;
+  color: #f8fafc;
+}
+
+.project-ack-copy {
+  margin: 0;
+}
+
+.project-ack-emphasis {
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.project-ack-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.15rem;
+}
+
+.project-action-button,
+.project-action-button:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #e0f2fe;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.75rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.7);
+  box-shadow: 0 10px 20px rgba(2, 6, 23, 0.18);
+}
+
+.project-action-button:hover {
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.project-action-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(244, 114, 182, 0.95),
+    rgba(249, 115, 22, 0.95)
+  );
+  color: white;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.project-action-icon.github {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 0.95),
+    rgba(75, 85, 99, 0.95)
+  );
+}
+
+@media (max-width: 760px) {
+  .project-ack-body {
+    grid-template-columns: 1fr;
+  }
+
+  .project-ack-actions {
+    flex-direction: column;
+  }
+
+  .project-action-button {
+    justify-content: center;
+  }
+
+  .project-photo {
+    aspect-ratio: 4 / 5;
+  }
+}

@@ -7,15 +7,18 @@ function TutorialModal({ isOpen, onClose }) {
   return (
     <div className="tutorial-overlay">
       <div className="tutorial-modal">
-        <h1 className="tutorial-title">Welcome to Algorithm Visualizer</h1>
+        <h1 className="tutorial-title">Quick Help Guide</h1>
         <p className="tutorial-text">
-          <strong>Drag Start & Finish Nodes:</strong> Click and drag the green (Start) and red (Finish) nodes to any empty cell on the grid to set your pathfinding endpoints.
+          <strong>1) Pick an algorithm:</strong> Use the dropdown, then click <strong>Visualize</strong>. The grid auto-loads a scenario tailored to that algorithm so comparisons are easier.
         </p>
         <p className="tutorial-text">
-          <strong>Draw Walls & Weights:</strong> Use the 'Draw Walls' mode to create obstacles, or switch to 'Draw Weights' mode to add weighted nodes (cost 15). Press 'Visualize' to find the shortest path!
+          <strong>2) Edit the map:</strong> Drag the green start and red finish nodes. Use <strong>Draw Walls</strong> for obstacles or <strong>Draw Weights</strong> for expensive terrain.
         </p>
         <p className="tutorial-text">
-          <strong>Generate Maze:</strong> Create a random maze and find paths through it. Choose Dijkstra or A* algorithm to see how they compare.
+          <strong>3) Reset controls:</strong> <strong>Clear Path</strong> keeps your walls and weights, while <strong>Clear Grid</strong> resets terrain. <strong>Generate Maze</strong> creates a random maze while preserving start/finish.
+        </p>
+        <p className="tutorial-text">
+          <strong>How to interpret results:</strong> Dijkstra and A* are optimal with non-negative weights. BFS is optimal only for unweighted movement. Greedy and DFS can be faster visually but may return longer paths.
         </p>
         <button className="tutorial-button" onClick={onClose}>
           Get Started

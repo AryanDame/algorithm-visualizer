@@ -23,21 +23,23 @@ function Grid({ setVisualizeDijkstra, setIsAnimating, selectedAlgorithm, setGene
   });
 
   return (
-    <div className="grid" style={{ pointerEvents: isAnimatingLocal ? 'none' : 'auto' }}>
-      {grid.map((row, rowIdx) => (
-        <div key={rowIdx} className="grid-row">
-          {row.map((node, nodeIdx) => (
-            <Node
-              key={nodeIdx}
-              node={node}
-              onMouseDown={handleMouseDown}
-              onMouseEnter={handleMouseEnter}
-              onMouseUp={handleMouseUp}
-              onContextMenu={handleRightClick}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="grid-stage">
+      <div className="grid" style={{ pointerEvents: isAnimatingLocal ? 'none' : 'auto' }}>
+        {grid.map((row, rowIdx) => (
+          <div key={rowIdx} className="grid-row">
+            {row.map((node, nodeIdx) => (
+              <Node
+                key={nodeIdx}
+                node={node}
+                onMouseDown={handleMouseDown}
+                onMouseEnter={handleMouseEnter}
+                onMouseUp={handleMouseUp}
+                onContextMenu={handleRightClick}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -24,6 +24,8 @@
 
 .tutorial-modal {
   width: min(100%, 560px);
+  max-height: 88vh;
+  overflow: auto;
   background: linear-gradient(
     180deg,
     rgba(15, 23, 42, 0.9),
