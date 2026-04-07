@@ -5,72 +5,86 @@
  * 3. Get random unvisited neighbors two steps away.
  * 4. If neighbors exist, move to one, remove the wall between, and recurse.
  */
-export function mazeRecursiveBacktracker(grid) {
-  // Start with all cells as walls
-  for (let row = 0; row < grid.length; row++) {
-    for (let col = 0; col < grid[row].length; col++) {
-      grid[row][col].isWall = true;
-    }
+function getRandomOddIndex(limit) {
+  const oddIndices = [];
+
+  for (let index = 1; index < limit; index += 2) {
+    oddIndices.push(index);
   }
 
-  // Choose random starting point
-  const startRow = Math.floor(Math.random() * grid.length);
-  const startCol = Math.floor(Math.random() * grid[0].length);
+  if (oddIndices.length === 0) {
+    return 0;
+  }
 
-  // Mark start as passage and begin recursion
-  grid[startRow][startCol].isWall = false;
-  carvePassagesFrom(startRow, startCol, grid);
+  return oddIndices[Math.floor(Math.random() * oddIndices.length)];
 }
 
-function carvePassagesFrom(currentRow, currentCol, grid) {
-  // Get unvisited neighbors (adjacent cells that are still walls)
-  const neighbors = getUnvisitedNeighbors(currentRow, currentCol, grid);
-
-  // Shuffle neighbors for randomness
-  shuffleArray(neighbors);
-
-  // Visit each neighbor
-  for (const neighbor of neighbors) {
-    const { row, col } = neighbor;
-
-    // If neighbor is still a wall, carve a passage
-    if (grid[row][col].isWall) {
-      grid[row][col].isWall = false;
-      carvePassagesFrom(row, col, grid);
-    }
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
-function getUnvisitedNeighbors(row, col, grid) {
+function getTwoStepNeighbors(row, col, grid) {
   const neighbors = [];
   const directions = [
-    { dr: -1, dc: 0 }, // up
-    { dr: 1, dc: 0 }, // down
-    { dr: 0, dc: -1 }, // left
-    { dr: 0, dc: 1 }, // right
+    { dr: -2, dc: 0 },
+    { dr: 2, dc: 0 },
+    { dr: 0, dc: -2 },
+    { dr: 0, dc: 2 },
   ];
 
-  for (const dir of directions) {
-    const newRow = row + dir.dr;
-    const newCol = col + dir.dc;
+  for (const direction of directions) {
+    const nextRow = row + direction.dr;
+    const nextCol = col + direction.dc;
 
-    // Check bounds
     if (
-      newRow >= 0 &&
-      newRow < grid.length &&
-      newCol >= 0 &&
-      newCol < grid[0].length
+      nextRow >= 0 &&
+      nextRow < grid.length &&
+      nextCol >= 0 &&
+      nextCol < grid[0].length
     ) {
-      neighbors.push({ row: newRow, col: newCol });
+      neighbors.push({ row: nextRow, col: nextCol });
     }
   }
 
   return neighbors;
 }
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+function carvePassagesFrom(currentRow, currentCol, grid) {
+  const neighbors = getTwoStepNeighbors(currentRow, currentCol, grid);
+  shuffleArray(neighbors);
+
+  for (const neighbor of neighbors) {
+    const { row, col } = neighbor;
+
+    if (grid[row][col].isWall) {
+      const wallRow = currentRow + (row - currentRow) / 2;
+      const wallCol = currentCol + (col - currentCol) / 2;
+      grid[wallRow][wallCol].isWall = false;
+      grid[row][col].isWall = false;
+      carvePassagesFrom(row, col, grid);
+    }
   }
+}
+
+export function mazeRecursiveBacktracker(grid) {
+  for (let row = 0; row < grid.length; row += 1) {
+    for (let col = 0; col < grid[row].length; col += 1) {
+      grid[row][col].isWall = true;
+      grid[row][col].isVisited = false;
+      grid[row][col].previousNode = null;
+      grid[row][col].distance = Infinity;
+      grid[row][col].fScore = Infinity;
+      grid[row][col].gScore = Infinity;
+      grid[row][col].hScore = Infinity;
+    }
+  }
+
+  const startRow = getRandomOddIndex(grid.length);
+  const startCol = getRandomOddIndex(grid[0].length);
+
+  grid[startRow][startCol].isWall = false;
+  carvePassagesFrom(startRow, startCol, grid);
 }

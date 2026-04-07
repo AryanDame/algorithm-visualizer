@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
+import { breadthFirstSearch } from "../algorithms/bfs";
+import { depthFirstSearch } from "../algorithms/dfs";
+import { greedyBestFirstSearch } from "../algorithms/greedyBestFirst";
+import { bidirectionalBreadthFirstSearch } from "../algorithms/bidirectionalBfs";
 import { mazeRecursiveBacktracker } from "../algorithms/mazeRecursiveBacktracker";
 
 export const useGridState = (props) => {
@@ -42,6 +46,40 @@ export const useGridState = (props) => {
     getInitialGrid(startNodePos, finishNodePos),
   );
 
+  const buildGridWithSpecialNodes = (
+    sourceGrid,
+    nextStartPos,
+    nextFinishPos,
+    resetTerrain = false,
+  ) => {
+    return sourceGrid.map((row) =>
+      row.map((node) => {
+        const nextNode = {
+          ...node,
+          distance: Infinity,
+          isVisited: false,
+          previousNode: null,
+          fScore: Infinity,
+          gScore: Infinity,
+          hScore: Infinity,
+        };
+
+        if (resetTerrain) {
+          nextNode.isWall = false;
+          nextNode.isWeight = false;
+          nextNode.weight = 1;
+        }
+
+        nextNode.isStart =
+          node.row === nextStartPos.row && node.col === nextStartPos.col;
+        nextNode.isFinish =
+          node.row === nextFinishPos.row && node.col === nextFinishPos.col;
+
+        return nextNode;
+      }),
+    );
+  };
+
   // Ref to track all active timeouts for cleanup
   const timeoutIdsRef = useRef([]);
 
@@ -64,6 +102,14 @@ export const useGridState = (props) => {
         return dijkstra(grid, startNode, finishNode);
       case "astar":
         return astar(grid, startNode, finishNode);
+      case "bfs":
+        return breadthFirstSearch(grid, startNode, finishNode);
+      case "dfs":
+        return depthFirstSearch(grid, startNode, finishNode);
+      case "greedy":
+        return greedyBestFirstSearch(grid, startNode, finishNode);
+      case "bidirectional-bfs":
+        return bidirectionalBreadthFirstSearch(grid, startNode, finishNode);
       default:
         throw new Error(`Unknown algorithm: ${algoName}`);
     }
@@ -163,15 +209,21 @@ export const useGridState = (props) => {
       ) {
         return;
       }
+      const updatedGrid = buildGridWithSpecialNodes(
+        grid,
+        { row, col },
+        finishNodePos,
+      );
+      setGrid(updatedGrid);
       setStartNodePos({ row, col });
 
       if (isVisualized) {
         clearPathVisuals();
-        const newStartNode = grid[row][col];
-        const newFinishNode = grid[finishNodePos.row][finishNodePos.col];
+        const newStartNode = updatedGrid[row][col];
+        const newFinishNode = updatedGrid[finishNodePos.row][finishNodePos.col];
         const visitedNodesInOrder = runAlgorithm(
           selectedAlgorithm,
-          grid,
+          updatedGrid,
           newStartNode,
           newFinishNode,
         );
@@ -192,15 +244,21 @@ export const useGridState = (props) => {
       ) {
         return;
       }
+      const updatedGrid = buildGridWithSpecialNodes(
+        grid,
+        startNodePos,
+        { row, col },
+      );
+      setGrid(updatedGrid);
       setFinishNodePos({ row, col });
 
       if (isVisualized) {
         clearPathVisuals();
-        const newStartNode = grid[startNodePos.row][startNodePos.col];
-        const newFinishNode = grid[row][col];
+        const newStartNode = updatedGrid[startNodePos.row][startNodePos.col];
+        const newFinishNode = updatedGrid[row][col];
         const visitedNodesInOrder = runAlgorithm(
           selectedAlgorithm,
-          grid,
+          updatedGrid,
           newStartNode,
           newFinishNode,
         );
@@ -242,8 +300,13 @@ export const useGridState = (props) => {
         const nodeElement = document.getElementById(
           `node-${node.row}-${node.col}`,
         );
-        if (nodeElement) {
-          nodeElement.className = "node node-shortest-path";
+        if (
+          nodeElement &&
+          !nodeElement.classList.contains("start") &&
+          !nodeElement.classList.contains("finish")
+        ) {
+          nodeElement.classList.remove("node-visited");
+          nodeElement.classList.add("node-shortest-path");
         }
       }, i * 50);
       timeoutIdsRef.current.push(timeoutId);
@@ -259,8 +322,12 @@ export const useGridState = (props) => {
         const nodeElement = document.getElementById(
           `node-${node.row}-${node.col}`,
         );
-        if (nodeElement) {
-          nodeElement.className = "node node-visited";
+        if (
+          nodeElement &&
+          !nodeElement.classList.contains("start") &&
+          !nodeElement.classList.contains("finish")
+        ) {
+          nodeElement.classList.add("node-visited");
         }
       }, i * 10);
       timeoutIdsRef.current.push(timeoutId);
@@ -283,19 +350,25 @@ export const useGridState = (props) => {
 
   // Algorithm visualization
   const visualizeDijkstra = () => {
-    const startNode = grid[startNodePos.row][startNodePos.col];
-    const finishNode = grid[finishNodePos.row][finishNodePos.col];
+    clearAllTimeouts();
+    clearPathVisuals();
+
+    const searchGrid = buildGridWithSpecialNodes(
+      grid,
+      startNodePos,
+      finishNodePos,
+    );
+    const startNode = searchGrid[startNodePos.row][startNodePos.col];
+    const finishNode = searchGrid[finishNodePos.row][finishNodePos.col];
     const visitedNodesInOrder = runAlgorithm(
       selectedAlgorithm,
-      grid,
+      searchGrid,
       startNode,
       finishNode,
     );
     const nodesInShortestPathOrder = finishNode.previousNode
       ? getNodesInShortestPathOrder(finishNode)
       : [];
-    console.log(visitedNodesInOrder);
-    console.log("Shortest path:", nodesInShortestPathOrder);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   };
 
@@ -307,19 +380,14 @@ export const useGridState = (props) => {
     setIsVisualized(false);
     setIsAnimatingLocal(false);
     setIsAnimating(false);
-    
-    const newGrid = grid.map((row) =>
-      row.map((node) => ({
-        ...node,
-        isWall: false,
-        isWeight: false,
-        weight: 1,
-        distance: Infinity,
-        isVisited: false,
-        previousNode: null,
-      }))
+
+    const newGrid = buildGridWithSpecialNodes(
+      grid,
+      startNodePos,
+      finishNodePos,
+      true,
     );
-    
+
     // Run maze generation
     mazeRecursiveBacktracker(newGrid);
     
@@ -342,42 +410,19 @@ export const useGridState = (props) => {
 
   const clearGrid = () => {
     clearAllTimeouts();
+    clearPathVisuals();
     setIsVisualized(false);
-    setGrid((prevGrid) =>
-      prevGrid.map((row) =>
-        row.map((node) => ({
-          ...node,
-          isWall: false,
-          isWeight: false,
-          weight: 1,
-          distance: Infinity,
-          isVisited: false,
-          previousNode: null,
-        })),
-      ),
+    setGrid(
+      buildGridWithSpecialNodes(grid, startNodePos, finishNodePos, true),
     );
   };
 
   const clearPath = () => {
     clearAllTimeouts();
     setIsVisualized(false);
-    setGrid((prevGrid) =>
-      prevGrid.map((row) =>
-        row.map((node) => ({
-          ...node,
-          distance: Infinity,
-          isVisited: false,
-          previousNode: null,
-        })),
-      ),
-    );
+    setGrid(buildGridWithSpecialNodes(grid, startNodePos, finishNodePos));
     clearPathVisuals();
   };
-
-  // Effects to sync with parent component callbacks
-  useEffect(() => {
-    setGrid(getInitialGrid(startNodePos, finishNodePos));
-  }, [startNodePos, finishNodePos]);
 
   useEffect(() => {
     setVisualizeDijkstra(() => visualizeDijkstra);

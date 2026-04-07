@@ -12,7 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://YOUR_GITHUB_USERNAME.github.io/algorithm-visualizer",
+  "homepage": "https://AryanDame.github.io/algorithm-visualizer",
   "dependencies": {
     "react": "^19.2.4",
     "react-dom": "^19.2.4"

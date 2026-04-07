@@ -1,6 +1,6 @@
 # 🎨 Algorithm Visualizer
 
-A beautiful, interactive pathfinding algorithm visualizer built with React and Vite. Watch as Dijkstra's algorithm and A\* search through a customizable grid to find the shortest path in real-time.
+A beautiful, interactive pathfinding algorithm visualizer built with React and Vite. Watch Dijkstra's algorithm, A\*, BFS, DFS, Greedy Best-First Search, and Bidirectional BFS search through a customizable grid in real time.
 
 ![Algorithm Visualizer](https://img.shields.io/badge/React-19.2-blue?style=flat-square) ![Vite](https://img.shields.io/badge/Vite-8.0-purple?style=flat-square) ![Node](https://img.shields.io/badge/Node-14+-green?style=flat-square)
 
@@ -11,6 +11,10 @@ A beautiful, interactive pathfinding algorithm visualizer built with React and V
 - **🎯 Multiple Pathfinding Algorithms**
   - Dijkstra's Algorithm - Find the shortest path with guaranteed optimality
   - A\* Search - Heuristic-based pathfinding for faster results
+  - Breadth-First Search - Classic unweighted shortest-path traversal
+  - Depth-First Search - Explore the grid deeply with stack-based traversal
+  - Greedy Best-First Search - Fast heuristic-driven exploration
+  - Bidirectional BFS - Search from both ends to meet in the middle
 
 - **🎪 Interactive Grid**
   - **Draggable Start & Finish nodes** - Click and drag to reposition endpoints
@@ -19,14 +23,14 @@ A beautiful, interactive pathfinding algorithm visualizer built with React and V
   - **Real-time Pathfinding** - See routes update instantly as you move nodes
 
 - **🏗️ Maze Generation**
-  - Random maze generation using Recursive Backtracking algorithm
+  - Real recursive backtracking maze generation with true corridors and walls
   - Automatically protects start and finish nodes
   - Clears grid cleanly with a single click
   - Fully tested and optimized for reliability
 
 - **⚡ Advanced Features**
   - **Animated Visualizations** - Smooth CSS animations showing visited nodes and shortest paths
-  - **Algorithm Comparison** - Switch between Dijkstra and A\* to see performance differences
+  - **Algorithm Comparison** - Compare weighted, unweighted, heuristic, and bidirectional searches
   - **Clear Grid & Clear Path** - Reset the grid or remove only visualization results
   - **Toggle Drawing Modes** - Easily switch between wall and weight drawing
   - **Tutorial Modal** - Interactive onboarding for new users
@@ -44,12 +48,17 @@ A beautiful, interactive pathfinding algorithm visualizer built with React and V
 - **React 19.2** - UI framework with hooks for state management
 - **Vite 8.0** - Lightning-fast build tool and dev server
 - **CSS3** - Custom animations and responsive design
+- **CSS3** - Glassmorphism panels, gradients, blur layers, and responsive design
 - **JavaScript ES6+** - Modern JavaScript with arrow functions and destructuring
 
 ### Algorithms
 
 - **Dijkstra's Algorithm** - Classic shortest path with priority queue
 - **A\* Search** - Heuristic-based pathfinding with Manhattan distance
+- **Breadth-First Search** - Unweighted shortest path traversal
+- **Depth-First Search** - Stack-based traversal for exploration
+- **Greedy Best-First Search** - Heuristic search that prioritizes proximity to the goal
+- **Bidirectional BFS** - Meets in the middle for faster unweighted searches
 - **Recursive Backtracking** - Maze generation algorithm
 
 ### Development & Testing
@@ -206,7 +215,8 @@ npm run test
 
 The application features a professionally designed, modern interface with:
 
-- **Gradient Backgrounds** - Beautiful purple-to-violet gradient (#667eea → #764ba2) throughout
+- **Glassmorphism Panels** - Frosted glass navigation, controls, and modal surfaces
+- **Layered Backgrounds** - Deep dark gradients with soft blurred color blooms
 - **Smooth Animations** - CSS3 transitions and keyframe animations for visual feedback
 - **Professional Shadows** - Subtle box-shadows for depth and hierarchy
 - **Responsive Buttons** - Interactive button states with hover effects and smooth transitions
@@ -228,6 +238,7 @@ The application features a professionally designed, modern interface with:
 - **Real-time pathfinding** during node dragging is optimized for responsiveness
 - **Animations** use CSS transitions for GPU acceleration
 - **Memory cleanup** prevents setTimeout leaks during animations
+- **Single scroll container** - The app shell avoids double scrollbars by keeping the browser viewport locked and scrolling only inside the main panel
 
 ---
 
