@@ -22,8 +22,8 @@ The application includes weighted and unweighted algorithms, draggable start/fin
 ### Shortest-path focused
 
 - Dijkstra
-- A*
-- Weighted A*
+- A\*
+- Weighted A\*
 - Bellman-Ford
 - Bidirectional Dijkstra
 
