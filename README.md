@@ -1,386 +1,176 @@
-# 🎨 Algorithm Visualizer
+# PathForge Route Lab
 
-A beautiful, interactive pathfinding algorithm visualizer built with React and Vite. Watch Dijkstra's algorithm, A\*, BFS, DFS, Greedy Best-First Search, and Bidirectional BFS search through a customizable grid in real time.
+PathForge Route Lab is an interactive pathfinding visualizer built with React and Vite. It is designed for learning, comparison, and demonstration of graph search behavior on a dynamic 2D grid.
 
-![Algorithm Visualizer](https://img.shields.io/badge/React-19.2-blue?style=flat-square) ![Vite](https://img.shields.io/badge/Vite-8.0-purple?style=flat-square) ![Node](https://img.shields.io/badge/Node-14+-green?style=flat-square)
+The application includes weighted and unweighted algorithms, draggable start/finish nodes, maze generation, startup acknowledgement content, and GitHub Pages deployment support.
 
----
+## Live Deployment
 
-## ✨ Features
+- Production URL: https://aryandame.github.io/algorithm-visualizer/
 
-- **🎯 Multiple Pathfinding Algorithms**
-  - Dijkstra's Algorithm - Find the shortest path with guaranteed optimality
-  - A\* Search - Heuristic-based pathfinding for faster results
-  - Breadth-First Search - Classic unweighted shortest-path traversal
-  - Depth-First Search - Explore the grid deeply with stack-based traversal
-  - Greedy Best-First Search - Fast heuristic-driven exploration
-  - Bidirectional BFS - Search from both ends to meet in the middle
+## Tech Stack
 
-- **🎪 Interactive Grid**
-  - **Draggable Start & Finish nodes** - Click and drag to reposition endpoints
-  - **Draw Walls** - Create obstacles by clicking and dragging on the grid
-  - **Weighted Nodes** - Add nodes with higher traversal costs (weight = 15)
-  - **Real-time Pathfinding** - See routes update instantly as you move nodes
+- React 19
+- Vite 8
+- CSS3 (custom animations and responsive UI)
+- Vitest 4
+- ESLint 9
+- gh-pages
 
-- **🏗️ Maze Generation**
-  - Real recursive backtracking maze generation with true corridors and walls
-  - Automatically protects start and finish nodes
-  - Clears grid cleanly with a single click
-  - Fully tested and optimized for reliability
+## Implemented Algorithms
 
-- **⚡ Advanced Features**
-  - **Animated Visualizations** - Smooth CSS animations showing visited nodes and shortest paths
-  - **Algorithm Comparison** - Compare weighted, unweighted, heuristic, and bidirectional searches
-  - **Clear Grid & Clear Path** - Reset the grid or remove only visualization results
-  - **Toggle Drawing Modes** - Easily switch between wall and weight drawing
-  - **Tutorial Modal** - Interactive onboarding for new users
+### Shortest-path focused
 
-- **🧪 Fully Tested**
-  - Comprehensive unit tests with Vitest
-  - Tests cover all core algorithms and edge cases
+- Dijkstra
+- A*
+- Weighted A*
+- Bellman-Ford
+- Bidirectional Dijkstra
 
----
+### Traversal and heuristic search
 
-## 🛠 Tech Stack
+- Breadth-First Search (BFS)
+- Depth-First Search (DFS)
+- Iterative Deepening DFS (IDDFS)
+- Greedy Best-First Search
+- Beam Search
+- Bidirectional BFS
 
-### Frontend
+### Maze generation
 
-- **React 19.2** - UI framework with hooks for state management
-- **Vite 8.0** - Lightning-fast build tool and dev server
-- **CSS3** - Custom animations and responsive design
-- **CSS3** - Glassmorphism panels, gradients, blur layers, and responsive design
-- **JavaScript ES6+** - Modern JavaScript with arrow functions and destructuring
+- Recursive backtracking maze generator
 
-### Algorithms
+## Core Features
 
-- **Dijkstra's Algorithm** - Classic shortest path with priority queue
-- **A\* Search** - Heuristic-based pathfinding with Manhattan distance
-- **Breadth-First Search** - Unweighted shortest path traversal
-- **Depth-First Search** - Stack-based traversal for exploration
-- **Greedy Best-First Search** - Heuristic search that prioritizes proximity to the goal
-- **Bidirectional BFS** - Meets in the middle for faster unweighted searches
-- **Recursive Backtracking** - Maze generation algorithm
+- Interactive 50x50 grid
+- Draggable start and finish nodes
+- Wall drawing mode
+- Weighted node drawing mode
+- Right-click alternate toggle behavior
+- Visualize visited order and shortest path
+- Persistent shortest-path highlighting after animation
+- Clear Path and Clear Grid controls
+- Algorithm-specific auto-loaded scenarios
+- Startup acknowledgement modal (removable module)
+- About modal with author profile and portrait
+- PDF report and GitHub links inside acknowledgement module
 
-### Development & Testing
+## Project Structure
 
-- **Vitest 4.1** - Fast unit test framework
-- **ESLint 9** - Code quality and linting
+```text
+algorithm-visualizer/
+  public/
+    Aryan_Dame_Project_Report_Copilot.pdf
+    aryan-professional-photo.png
+    favicon.svg
+    hero.png
+  src/
+    algorithms/
+      astar.js
+      beamSearch.js
+      bellmanFord.js
+      bfs.js
+      bidirectionalBfs.js
+      bidirectionalDijkstra.js
+      dfs.js
+      dijkstra.js
+      graphHelpers.js
+      greedyBestFirst.js
+      iddfs.js
+      mazeRecursiveBacktracker.js
+      weightedAstar.js
+      searchAlgorithms.test.js
+    components/
+      AboutModal.jsx
+      Grid.jsx
+      LearningPage.jsx
+      Navbar.jsx
+      Node.jsx
+      ProjectAcknowledgementModule.jsx
+      StartupAcknowledgementModal.jsx
+      TutorialModal.jsx
+    hooks/
+      useGridState.jsx
+    App.jsx
+    App.css
+    main.jsx
+  index.html
+  package.json
+  vite.config.js
+  README.md
+```
 
----
-
-## 📦 Installation
+## Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed:
+- Node.js 18+ recommended
+- npm
 
-- **Node.js** (v14 or higher)
-- **npm** (comes with Node.js)
-
-### Step-by-Step Setup
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/yourusername/algorithm-visualizer.git
-   cd algorithm-visualizer
-   ```
-
-2. **Install Dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Start the Development Server**
-
-   ```bash
-   npm run dev
-   ```
-
-   The app will open at `http://localhost:5173` (or the next available port).
-
-4. **Build for Production** (Optional)
-
-   ```bash
-   npm run build
-   ```
-
-   Output will be in the `dist/` folder.
-
-5. **Preview Production Build** (Optional)
-   ```bash
-   npm run preview
-   ```
-
----
-
-## 🎮 How to Use
-
-### Getting Started
-
-1. **Open the app** - The tutorial modal will appear on first load
-2. **Click "Get Started"** to dismiss the tutorial (or click the **?** button anytime to reopen it)
-
-### Drawing Walls
-
-- **Left-click and drag** on the grid to draw walls
-- Walls block pathfinding algorithms
-- Use the **"Draw Walls"** button to toggle this mode
-
-### Adding Weighted Nodes
-
-- **Click the drawing mode toggle** to switch to **"Draw Weights"**
-- Left-click and drag to place weighted nodes (cost = 15)
-- Higher weights = slower traversal through that node
-
-### Moving Start & Finish Nodes
-
-- **Click and drag** the green (Start) or red (Finish) nodes to any empty cell
-- Cannot place on walls, weights, or each other
-- **Real-time pathfinding** updates instantly as you move nodes (if visualization is active)
-
-### Running the Algorithm
-
-1. **Select an algorithm** - Choose between Dijkstra or A\* from the dropdown
-2. **Click "Visualize"** - Watch the algorithm find the shortest path
-3. The grid will show:
-   - **Light blue nodes** = visited during search
-   - **Yellow nodes** = shortest path found
-
-### Generating a Maze
-
-- **Click "Generate Maze"** to create a random maze
-- The Start and Finish nodes will be protected from walls
-- Run any algorithm to find a path through the maze
-
-### Clearing the Grid
-
-- **Clear Grid** - Removes all walls, weights, and path visualizations
-- **Clear Path** - Removes only the visualization (keep walls/weights intact)
-
----
-
-## 📊 Project Structure
-
-```
-algorithm-visualizer/
-├── src/
-│   ├── algorithms/
-│   │   ├── dijkstra.js           # Dijkstra's shortest path algorithm
-│   │   ├── dijkstra.test.js      # Comprehensive unit tests
-│   │   ├── astar.js              # A* pathfinding algorithm
-│   │   └── mazeRecursiveBacktracker.js  # Maze generation
-│   ├── components/
-│   │   ├── Grid.jsx              # Main grid component
-│   │   ├── Grid.css              # Grid styling
-│   │   ├── Node.jsx              # Individual grid cell
-│   │   ├── Node.css              # Node animations and styling
-│   │   ├── Navbar.jsx            # Controls and header
-│   │   ├── Navbar.css            # Navigation styling
-│   │   ├── TutorialModal.jsx     # Tutorial onboarding
-│   │   └── TutorialModal.css     # Tutorial styling
-│   ├── hooks/
-│   │   └── useGridState.jsx      # Custom hook for grid state management
-│   ├── App.jsx                   # Main app component
-│   ├── App.css                   # Global app styling
-│   └── main.jsx                  # Entry point
-├── public/                       # Static assets
-├── package.json                  # Project dependencies
-├── vite.config.js               # Vite configuration
-├── eslint.config.js             # ESLint rules
-└── README.md                     # This file
-```
-
----
-
-## 🧪 Testing
-
-Run the test suite:
+### Install
 
 ```bash
-npm run test
+npm install
 ```
 
-**Test Coverage:**
+### Run locally
 
-- Algorithm correctness (Dijkstra, A\*)
-- Edge cases (walls, unreachable nodes, weights)
-- Grid manipulation and state management
-- Node adjacency and distance calculations
-
----
-
-## 🎨 Modern Design Features
-
-The application features a professionally designed, modern interface with:
-
-- **Glassmorphism Panels** - Frosted glass navigation, controls, and modal surfaces
-- **Layered Backgrounds** - Deep dark gradients with soft blurred color blooms
-- **Smooth Animations** - CSS3 transitions and keyframe animations for visual feedback
-- **Professional Shadows** - Subtle box-shadows for depth and hierarchy
-- **Responsive Buttons** - Interactive button states with hover effects and smooth transitions
-- **Color-Coded Nodes** -
-  - Green gradient for Start node (#11998e → #38ef7d)
-  - Red/Orange gradient for Finish node (#ee0979 → #ff6a00)
-  - Dark gradient for Walls (#1a1a1a)
-  - Purple radial gradient for Weights
-  - Light blue for visited nodes
-  - Yellow for shortest path
-
-- **Enhanced Interactivity** - Buttons scale smoothly, dropdowns show visual feedback, help button rotates on hover
-
----
-
-## 🚀 Performance Tips
-
-- **Large grids** (50x50) work smoothly with memoization
-- **Real-time pathfinding** during node dragging is optimized for responsiveness
-- **Animations** use CSS transitions for GPU acceleration
-- **Memory cleanup** prevents setTimeout leaks during animations
-- **Single scroll container** - The app shell avoids double scrollbars by keeping the browser viewport locked and scrolling only inside the main panel
-
----
-
-## 🎨 Customization
-
-### Change Grid Size
-
-Edit `useGridState.jsx` and modify the grid dimensions:
-
-```javascript
-Array.from({ length: 50 }, ...)  // Change 50 to your desired size
+```bash
+npm run dev
 ```
 
-### Adjust Node Weight
+### Run tests
 
-In `useGridState.jsx`, modify the weight value:
-
-```javascript
-weight: !node.isWeight ? 15 : 1; // Change 15 to your desired weight
+```bash
+npm run test -- --run
 ```
 
-### Customize Colors
+### Build
 
-Edit the CSS files in `src/components/`:
+```bash
+npm run build
+```
 
-- `.node-visited` - Visited node color
-- `.node-shortest-path` - Path animation color
-- `.wall` - Wall node color
-- `.node-weight` - Weighted node styling
+### Preview production build
 
----
+```bash
+npm run preview
+```
 
-## 📚 Algorithm Details
+## Deployment (GitHub Pages)
 
-### Dijkstra's Algorithm
+This project is configured for GitHub Pages with:
 
-- **Time Complexity:** O((V + E) log V) with binary heap
-- **Space Complexity:** O(V)
-- **Best for:** General shortest path finding, weighted graphs
-- **Guarantees:** Always finds the optimal path
+- `base: "/algorithm-visualizer/"` in Vite config
+- `gh-pages` deployment scripts in package.json
 
-### A\* Search
+Deploy command:
 
-- **Time Complexity:** O((V + E) log V) with heuristic
-- **Space Complexity:** O(V)
-- **Best for:** Goal-directed pathfinding, fewer node expansions
-- **Uses:** Manhattan distance heuristic
-- **Note:** Faster than Dijkstra due to heuristic guidance
+```bash
+npm run deploy
+```
 
-### Recursive Backtracking Maze
+## How To Use
 
-- **Time Complexity:** O(cells)
-- **Creates:** Perfect mazes (one solution path)
-- **Uses:** Depth-first search with random neighbor selection
+1. Open the app.
+2. Review the startup acknowledgement and continue.
+3. Select an algorithm from the dropdown.
+4. Modify the board using walls/weights and drag start or finish nodes.
+5. Click Visualize.
+6. Compare behavior across algorithms by switching options and rerunning.
 
----
+## Notes on Assets
 
-## 🐛 Known Issues & Future Improvements
+- Author portrait file expected at `public/aryan-professional-photo.png`
+- Report file expected at `public/Aryan_Dame_Project_Report_Copilot.pdf`
+- Paths are base-aware for GitHub Pages deployment
 
-### Recently Fixed ✅
+## Quality Status
 
-- [x] **Maze Generation Bug** (FIXED) - Maze generation now properly resets the grid, clears all animations, and protects start/finish nodes
-- [x] **Modern Visual Design** (COMPLETED) - Applied beautiful gradient backgrounds, smooth shadows, and enhanced animations throughout the application
-- [x] **Memory Leak Prevention** - All animation timeouts are properly cleaned up to prevent memory leaks
+- Unit tests passing
+- Production build passing
+- Deployed to `main` branch workflow via `gh-pages`
 
-### Future Enhancements
+## Acknowledgement
 
-- [ ] Breadth-First Search (BFS) algorithm
-- [ ] Bidirectional pathfinding
-- [ ] Custom weight input
-- [ ] Keyboard shortcuts for faster interaction
-- [ ] Export/import grid configurations
-- [ ] Dark theme support
-- [ ] Mobile responsiveness improvements
-- [ ] Additional maze generation algorithms
-- [ ] Grid size customization in UI
-
-### Known Limitations
-
-- Grid size is fixed at 50x50 (can be customized in code)
-- No undo/redo functionality
-- Start/Finish nodes cannot be swapped with a single action
-
----
-
-## 💡 Tips for Best Experience
-
-1. **Start with the tutorial** - Click the **?** button to review controls anytime
-2. **Try different algorithms** - Compare Dijkstra vs A\* on the same maze
-3. **Experiment with weights** - Weight nodes differently to test pathfinding
-4. **Generate diverse mazes** - Each maze is unique; find patterns in solutions
-5. **Move nodes during visualization** - Watch real-time pathfinding in action
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Inspired by visualization tools like Pathfinding.js
-- Algorithm implementations based on classic computer science literature
-- Built with ❤️ using React and Vite
-
----
-
-## 📞 Support
-
-Have questions or found a bug?
-
-- **Open an Issue** - Report bugs or request features on GitHub
-- **Discussions** - Share ideas and ask questions in the discussions tab
-- **Email** - Contact the maintainers directly
-
----
-
-## 🎓 Learning Resources
-
-Want to understand the algorithms better?
-
-- [Dijkstra's Algorithm Explained](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
-- [A\* Pathfinding Article](https://en.wikipedia.org/wiki/A*_search_algorithm)
-- [Maze Generation Algorithms](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
-- [Interactive Algorithm Visualizations](https://visualgo.net/)
-
----
-
-**Happy Pathfinding! 🗺️✨**
-
-_Made with React, built with Vite, visualized with passion._
+This project includes a dedicated startup acknowledgement module for the Artificial Business Intelligence subject context and can be removed later without affecting the core visualizer.
