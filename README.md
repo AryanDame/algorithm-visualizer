@@ -4,6 +4,21 @@ PathForge Route Lab is an interactive pathfinding visualizer built with React an
 
 The application includes weighted and unweighted algorithms, draggable start/finish nodes, maze generation, startup acknowledgement content, and GitHub Pages deployment support.
 
+## About Me
+
+I am Aryan Dame, a student focused on building practical products at the intersection of Artificial Intelligence, data science, and software engineering.
+
+I enjoy turning technical concepts into interactive learning tools that are easy to explore and visually engaging. This project reflects that goal by combining algorithmic depth with hands-on UI experimentation, responsive design work, and iterative deployment.
+
+My current interests include:
+
+- Applied AI and intelligent systems in business contexts
+- Data-driven product design and experimentation
+- Developer tooling and AI-assisted workflows
+- Building educational software experiences that make complex topics easier to understand
+
+If you want to connect or collaborate, you can use the links inside the app's acknowledgement and about modules.
+
 ## Live Deployment
 
 - Production URL: https://aryandame.github.io/algorithm-visualizer/
@@ -174,3 +189,8 @@ npm run deploy
 ## Acknowledgement
 
 This project includes a dedicated startup acknowledgement module for the Artificial Business Intelligence subject context and can be removed later without affecting the core visualizer.
+
+## License
+
+This repository is licensed under the GNU General Public License v3.0 or later (GPL-3.0-or-later).
+See the [LICENSE](LICENSE) file for full terms.
