@@ -21,7 +21,7 @@ function ProjectAcknowledgementModule() {
       <div className="project-ack-head">
         <div>
           <p className="project-ack-label">Acknowledgement</p>
-          <h2>Artificial Business Intelligence Project</h2>
+          <h2>Prof. Dr. Igor Perko</h2>
         </div>
         <span className="project-ack-tag">Removable Module</span>
       </div>

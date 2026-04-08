@@ -183,6 +183,47 @@
   }
 }
 
+@media (max-width: 760px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.9rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .nav-chip,
+  .about-button,
+  .help-button {
+    height: 40px;
+  }
+
+  .about-button {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+
+  .control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 0.75rem;
+  }
+
+  .control-bar select,
+  .control-bar button {
+    width: 100%;
+  }
+
+  .control-bar > * {
+    flex: 1 1 auto;
+  }
+}
+
 .control-bar select:hover {
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);

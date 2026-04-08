@@ -28,3 +28,16 @@
   display: flex;
   gap: 1px;
 }
+
+@media (max-width: 760px) {
+  .grid-stage {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0.25rem;
+  }
+
+  .grid {
+    padding: 0.55rem;
+    border-radius: 20px;
+  }
+}

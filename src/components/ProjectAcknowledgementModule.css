@@ -168,12 +168,22 @@
     grid-template-columns: 1fr;
   }
 
+  .project-ack-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .project-ack-actions {
     flex-direction: column;
   }
 
   .project-action-button {
     justify-content: center;
+  }
+
+  .project-ack-photo-card,
+  .project-photo-fallback {
+    min-height: 280px;
   }
 
   .project-photo {

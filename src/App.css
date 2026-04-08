@@ -2,7 +2,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100dvh;
+  height: 100dvh;
   overflow: hidden;
   background:
     radial-gradient(
@@ -114,4 +115,23 @@
     rgba(15, 23, 42, 0.16)
   );
   backdrop-filter: blur(18px);
+}
+
+@media (max-width: 760px) {
+  .app {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+
+  .orb {
+    display: none;
+  }
+
+  .main-body {
+    padding: 0.6rem;
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
