@@ -6,9 +6,13 @@ const Node = React.memo(({ node, onMouseDown, onMouseEnter, onMouseUp, onContext
     <div
       id={`node-${node.row}-${node.col}`}
       className={`node ${node.isStart ? 'start' : ''} ${node.isFinish ? 'finish' : ''} ${node.isWall ? 'wall' : ''} ${node.isWeight ? 'node-weight' : ''}`}
-      onMouseDown={() => onMouseDown(node.row, node.col)}
-      onMouseEnter={() => onMouseEnter(node.row, node.col)}
-      onMouseUp={onMouseUp}
+      onPointerDown={(event) => {
+        event.preventDefault();
+        onMouseDown(node.row, node.col);
+      }}
+      onPointerEnter={() => onMouseEnter(node.row, node.col)}
+      onPointerUp={onMouseUp}
+      onPointerCancel={onMouseUp}
       onContextMenu={(e) => onContextMenu(node.row, node.col, e)}
     ></div>
   );

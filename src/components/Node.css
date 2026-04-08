@@ -35,8 +35,8 @@
 }
 
 .node {
-  width: 20px;
-  height: 20px;
+  width: clamp(9px, 2.2vw, 20px);
+  height: clamp(9px, 2.2vw, 20px);
   background: rgba(15, 23, 42, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.06);
   cursor: pointer;
@@ -45,6 +45,8 @@
     border-color 0.1s ease,
     box-shadow 0.1s ease;
   border-radius: 2px;
+  touch-action: none;
+  user-select: none;
 }
 
 .node:hover {
@@ -108,10 +110,10 @@
 .node-weight::before {
   content: "";
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
+  top: 18%;
+  left: 18%;
+  width: 64%;
+  height: 64%;
   background: linear-gradient(
     45deg,
     rgba(255, 255, 255, 0.3) 0%,
@@ -121,20 +123,9 @@
   opacity: 0.8;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 480px) {
   .node {
-    width: 14px;
-    height: 14px;
-  }
-
-  .node-weight::before {
-    top: 1px;
-    left: 1px;
-    width: 12px;
-    height: 12px;
-  }
-
-  .node-visited {
-    animation-duration: 0.35s;
+    width: clamp(8px, 2.6vw, 14px);
+    height: clamp(8px, 2.6vw, 14px);
   }
 }

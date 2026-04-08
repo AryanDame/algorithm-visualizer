@@ -173,15 +173,18 @@
 }
 
 @media (max-width: 760px) {
+  .about-overlay {
+    padding: 0.75rem;
+  }
+
   .about-modal {
+    max-height: 94vh;
     padding: 1rem;
-    max-height: 94dvh;
+    border-radius: 22px;
   }
 
   .about-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: 2.4rem;
+    padding-right: 2.5rem;
   }
 
   .about-intro-card {
@@ -193,6 +196,30 @@
   }
 
   .about-photo-fallback {
-    min-height: 300px;
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-modal {
+    padding: 0.85rem;
+  }
+
+  .about-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 0;
+  }
+
+  .about-close-top {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .about-link,
+  .about-link:visited {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
   }
 }

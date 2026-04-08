@@ -105,6 +105,7 @@
   z-index: 1;
   flex: 1;
   display: block;
+  min-height: 0;
   padding: clamp(0.75rem, 1.6vw, 1.5rem);
   overflow-y: auto;
   overflow-x: auto;
@@ -117,21 +118,20 @@
   backdrop-filter: blur(18px);
 }
 
-@media (max-width: 760px) {
-  .app {
-    min-height: 100dvh;
-    height: 100dvh;
-  }
-
+@media (max-width: 768px) {
+  .app::before,
+  .app::after,
   .orb {
-    display: none;
+    opacity: 0.22;
   }
 
   .main-body {
-    padding: 0.6rem;
-    overflow-x: auto;
-    overflow-y: auto;
-    scrollbar-gutter: auto;
-    -webkit-overflow-scrolling: touch;
+    padding: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-body {
+    padding: 0.45rem;
   }
 }

@@ -168,11 +168,6 @@
     grid-template-columns: 1fr;
   }
 
-  .project-ack-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .project-ack-actions {
     flex-direction: column;
   }
@@ -181,12 +176,34 @@
     justify-content: center;
   }
 
-  .project-ack-photo-card,
-  .project-photo-fallback {
-    min-height: 280px;
-  }
-
   .project-photo {
     aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-ack-module {
+    padding: 0.95rem;
+    border-radius: 20px;
+  }
+
+  .project-ack-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-ack-actions {
+    gap: 0.55rem;
+  }
+
+  .project-action-button,
+  .project-action-button:visited {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .project-photo-fallback {
+    min-height: 260px;
   }
 }

@@ -65,24 +65,18 @@
   cursor: pointer;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 640px) {
   .startup-ack-overlay {
     padding: 0.6rem;
   }
 
   .startup-ack-modal {
-    width: 100%;
-    max-height: 96dvh;
-    padding: 0.8rem;
+    max-height: 95vh;
+    padding: 0.85rem;
     border-radius: 18px;
   }
 
   .startup-ack-header {
     align-items: flex-start;
-  }
-
-  .startup-ack-header h1 {
-    font-size: 1.05rem;
-    line-height: 1.25;
   }
 }
