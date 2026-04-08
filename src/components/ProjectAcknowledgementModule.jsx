@@ -26,9 +26,32 @@ function ProjectAcknowledgementModule() {
       <div className="project-ack-head">
         <div>
           <p className="project-ack-label">Acknowledgement</p>
-          <h2>Artificial Business Intelligence Project</h2>{" "}
+          <h2>Artificial Business Intelligence Project</h2>
         </div>
         <span className="project-ack-tag">Removable Module</span>
+      </div>
+
+      <div className="project-ack-metadata">
+        <div className="metadata-badge hours-badge">
+          <span className="badge-icon">⏱</span>
+          <span className="badge-label">Hours Spent</span>
+          <span className="badge-value">26+</span>
+        </div>
+        <div className="metadata-badge algorithms-badge">
+          <span className="badge-icon">📊</span>
+          <span className="badge-label">Algorithms</span>
+          <span className="badge-value">12</span>
+        </div>
+        <div className="metadata-badge stack-badge">
+          <span className="badge-icon">⚛</span>
+          <span className="badge-label">Stack</span>
+          <span className="badge-value">React+Vite</span>
+        </div>
+        <div className="metadata-badge ai-badge">
+          <span className="badge-icon">🤖</span>
+          <span className="badge-label">AI Tool</span>
+          <span className="badge-value">Copilot</span>
+        </div>
       </div>
 
       <div className="project-ack-body">
@@ -53,9 +76,10 @@ function ProjectAcknowledgementModule() {
 
         <div className="project-ack-copy-area">
           <p className="project-ack-lead">
-            Welcome Prof. Dr. Igor Perko from the University of Maribor. This
-            website was designed as a project for the subject Artificial
-            Business Intelligence to test the capabilities of GitHub Copilot.
+            Welcome Prof. Dr. Igor Perko and my batchmates from the University
+            of Maribor. This website was designed as a project for the subject
+            Artificial Business Intelligence to test the capabilities of GitHub
+            Copilot.
           </p>
 
           <p className="project-ack-copy">

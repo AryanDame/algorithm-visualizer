@@ -26,6 +26,58 @@
   font-size: 1.18rem;
 }
 
+.project-ack-metadata {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.metadata-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.52);
+  font-size: 0.8rem;
+  color: #e2e8f0;
+}
+
+.metadata-badge .badge-icon {
+  font-size: 0.95rem;
+}
+
+.metadata-badge .badge-label {
+  color: rgba(226, 232, 240, 0.75);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metadata-badge .badge-value {
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+.metadata-badge.hours-badge .badge-value {
+  color: #34d399;
+}
+
+.metadata-badge.algorithms-badge .badge-value {
+  color: #fbbf24;
+}
+
+.metadata-badge.stack-badge .badge-value {
+  color: #60a5fa;
+}
+
+.metadata-badge.ai-badge .badge-value {
+  color: #a78bfa;
+}
+
 .project-ack-label {
   margin: 0 0 0.2rem;
   text-transform: uppercase;
@@ -164,6 +216,19 @@
 }
 
 @media (max-width: 760px) {
+  .project-ack-metadata {
+    gap: 0.5rem;
+  }
+
+  .metadata-badge {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .metadata-badge .badge-icon {
+    font-size: 0.85rem;
+  }
+
   .project-ack-body {
     grid-template-columns: 1fr;
   }
@@ -178,6 +243,22 @@
 
   .project-photo {
     aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 520px) {
+  .project-ack-metadata {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.45rem;
+  }
+
+  .metadata-badge {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.7rem;
+  }
+
+  .metadata-badge .badge-value {
+    font-size: 0.85rem;
   }
 }
 
