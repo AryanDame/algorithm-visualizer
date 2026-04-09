@@ -11,6 +11,8 @@ import { beamSearch } from "../algorithms/beamSearch";
 import { iterativeDeepeningDfs } from "../algorithms/iddfs";
 import { mazeRecursiveBacktracker } from "../algorithms/mazeRecursiveBacktracker";
 import { weightedAstar } from "../algorithms/weightedAstar";
+import { uniformCostSearch } from "../algorithms/uniformCostSearch";
+import { bidirectionalGreedyBestFirstSearch } from "../algorithms/bidirectionalGreedy";
 
 export const useGridState = (props) => {
   const {
@@ -114,6 +116,22 @@ export const useGridState = (props) => {
         }
         return { start, finish, walls, weights };
       }
+      case "uniform-cost": {
+        const start = { row: 12, col: 5 };
+        const finish = { row: 37, col: 45 };
+        const walls = [];
+        for (let row = 10; row <= 38; row += 1) {
+          if (row !== 22) walls.push([row, 20]);
+          if (row !== 30) walls.push([row, 32]);
+        }
+        const weights = [];
+        for (let col = 8; col <= 42; col += 1) {
+          if (col < 20 || col > 32) {
+            weights.push([24, col, 12]);
+          }
+        }
+        return { start, finish, walls, weights };
+      }
       case "bfs": {
         const start = { row: 8, col: 5 };
         const finish = { row: 40, col: 40 };
@@ -199,6 +217,24 @@ export const useGridState = (props) => {
           }
         }
         return { start, finish, walls, weights };
+      }
+      case "bidirectional-greedy": {
+        const start = { row: 24, col: 4 };
+        const finish = { row: 24, col: 45 };
+        const walls = [];
+        for (let row = 8; row <= 40; row += 1) {
+          if (row !== 16 && row !== 32) {
+            walls.push([row, 15]);
+            walls.push([row, 34]);
+          }
+        }
+        for (let col = 16; col <= 33; col += 1) {
+          if (col !== 24) {
+            walls.push([14, col]);
+            walls.push([34, col]);
+          }
+        }
+        return { start, finish, walls, weights: [] };
       }
       case "bellman-ford": {
         const start = { row: 30, col: 5 };
@@ -296,6 +332,8 @@ export const useGridState = (props) => {
         return astar(grid, startNode, finishNode);
       case "weighted-astar":
         return weightedAstar(grid, startNode, finishNode);
+      case "uniform-cost":
+        return uniformCostSearch(grid, startNode, finishNode);
       case "bfs":
         return breadthFirstSearch(grid, startNode, finishNode);
       case "dfs":
@@ -308,6 +346,8 @@ export const useGridState = (props) => {
         return bidirectionalBreadthFirstSearch(grid, startNode, finishNode);
       case "bidirectional-dijkstra":
         return bidirectionalDijkstra(grid, startNode, finishNode);
+      case "bidirectional-greedy":
+        return bidirectionalGreedyBestFirstSearch(grid, startNode, finishNode);
       case "bellman-ford":
         return bellmanFord(grid, startNode, finishNode);
       case "iddfs":
@@ -467,11 +507,10 @@ export const useGridState = (props) => {
       ) {
         return;
       }
-      const updatedGrid = buildGridWithSpecialNodes(
-        grid,
-        startNodePos,
-        { row, col },
-      );
+      const updatedGrid = buildGridWithSpecialNodes(grid, startNodePos, {
+        row,
+        col,
+      });
       setGrid(updatedGrid);
       setFinishNodePos({ row, col });
 
@@ -626,7 +665,7 @@ export const useGridState = (props) => {
 
     // Run maze generation
     mazeRecursiveBacktracker(newGrid);
-    
+
     // Ensure start and finish nodes are not walls
     newGrid[startNodePos.row][startNodePos.col] = {
       ...newGrid[startNodePos.row][startNodePos.col],
@@ -640,7 +679,7 @@ export const useGridState = (props) => {
       isFinish: true,
       isWeight: false,
     };
-    
+
     setGrid(newGrid);
   };
 
@@ -648,9 +687,7 @@ export const useGridState = (props) => {
     clearAllTimeouts();
     clearPathVisuals();
     setIsVisualized(false);
-    setGrid(
-      buildGridWithSpecialNodes(grid, startNodePos, finishNodePos, true),
-    );
+    setGrid(buildGridWithSpecialNodes(grid, startNodePos, finishNodePos, true));
   };
 
   const clearPath = () => {

@@ -9,6 +9,8 @@ import { beamSearch } from "./beamSearch.js";
 import { iterativeDeepeningDfs } from "./iddfs.js";
 import { mazeRecursiveBacktracker } from "./mazeRecursiveBacktracker.js";
 import { weightedAstar } from "./weightedAstar.js";
+import { uniformCostSearch } from "./uniformCostSearch.js";
+import { bidirectionalGreedyBestFirstSearch } from "./bidirectionalGreedy.js";
 import { getNodesInShortestPathOrder } from "./dijkstra.js";
 
 function createMockGrid(rows, cols) {
@@ -142,6 +144,24 @@ describe("new pathfinding algorithms", () => {
     expect(path[path.length - 1]).toBe(finishNode);
   });
 
+  it("uniform cost search reaches finish on weighted map", () => {
+    const grid = createMockGrid(5, 5);
+    const startNode = grid[0][0];
+    const finishNode = grid[4][4];
+
+    grid[0][1].isWeight = true;
+    grid[0][1].weight = 12;
+    grid[1][1].isWeight = true;
+    grid[1][1].weight = 12;
+
+    const visitedNodes = uniformCostSearch(grid, startNode, finishNode);
+    const path = getNodesInShortestPathOrder(finishNode);
+
+    expect(visitedNodes).toContain(finishNode);
+    expect(path[0]).toBe(startNode);
+    expect(path[path.length - 1]).toBe(finishNode);
+  });
+
   it("beam search can find a path in open space", () => {
     const grid = createMockGrid(5, 5);
     const startNode = grid[0][0];
@@ -168,6 +188,23 @@ describe("new pathfinding algorithms", () => {
 
     expect(visitedNodes).toContain(startNode);
     expect(visitedNodes).toContain(finishNode);
+    expect(path[0]).toBe(startNode);
+    expect(path[path.length - 1]).toBe(finishNode);
+  });
+
+  it("bidirectional greedy search reaches the goal", () => {
+    const grid = createMockGrid(6, 6);
+    const startNode = grid[0][0];
+    const finishNode = grid[5][5];
+
+    const visitedNodes = bidirectionalGreedyBestFirstSearch(
+      grid,
+      startNode,
+      finishNode,
+    );
+    const path = getNodesInShortestPathOrder(finishNode);
+
+    expect(visitedNodes.length).toBeGreaterThan(0);
     expect(path[0]).toBe(startNode);
     expect(path[path.length - 1]).toBe(finishNode);
   });

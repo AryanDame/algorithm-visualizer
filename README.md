@@ -39,6 +39,7 @@ If you want to connect or collaborate, you can use the links inside the app's ac
 - Dijkstra
 - A\*
 - Weighted A\*
+- Uniform Cost Search
 - Bellman-Ford
 - Bidirectional Dijkstra
 
@@ -50,6 +51,7 @@ If you want to connect or collaborate, you can use the links inside the app's ac
 - Greedy Best-First Search
 - Beam Search
 - Bidirectional BFS
+- Bidirectional Greedy Search
 
 ### Maze generation
 
@@ -87,12 +89,14 @@ algorithm-visualizer/
       bfs.js
       bidirectionalBfs.js
       bidirectionalDijkstra.js
+      bidirectionalGreedy.js
       dfs.js
       dijkstra.js
       graphHelpers.js
       greedyBestFirst.js
       iddfs.js
       mazeRecursiveBacktracker.js
+      uniformCostSearch.js
       weightedAstar.js
       searchAlgorithms.test.js
     components/

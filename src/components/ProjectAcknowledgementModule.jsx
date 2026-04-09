@@ -40,7 +40,7 @@ function ProjectAcknowledgementModule() {
         <div className="metadata-badge algorithms-badge">
           <span className="badge-icon">📊</span>
           <span className="badge-label">Algorithms</span>
-          <span className="badge-value">12</span>
+          <span className="badge-value">14</span>
         </div>
         <div className="metadata-badge stack-badge">
           <span className="badge-icon">⚛</span>
